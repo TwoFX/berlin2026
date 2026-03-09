@@ -1,0 +1,22 @@
+name = "berlin2026"
+version = "0.1.0"
+defaultTargets = ["bobkonf", "leaning-in"]
+
+[[require]]
+name = "verso-slides"
+git = "https://github.com/leanprover/verso-slides.git"
+rev = "main"
+
+[[lean_lib]]
+name = "Bobkonf"
+
+[[lean_lib]]
+name = "LeaningIn"
+
+[[lean_exe]]
+name = "bobkonf"
+root = "Bobkonf"
+
+[[lean_exe]]
+name = "leaning-in"
+root = "LeaningIn"
