@@ -15,6 +15,57 @@ slideNumber := true
 transition := "slide"
 %%%
 
-# Introduction
+# Verified software development in Lean
 
-Hello, Leaning In!
+Julia Markus Himmel
+
+Lean FRO
+
+# Did you know that Lean is not just a theorem prover, but also a really good programming language? Also, check out all of the cool things that we added to Lean in the past two years that make it even better for programming and proving things about programs
+
+Julia Markus Himmel
+
+Lean FRO
+
+# Lean is a programming language
+
+It's a functional programming language in the ML familiy just like OCaml, Haskell, F#, etc.
+
+It compiles to fast native code.
+
+It can be and is used to write any kind of program, not just Lean metaprograms.
+
+As you know, it supports proofs, so you can do verified software development
+(as opposed to just software verification) in it!
+
+# Language Server & VS Code Extension
+
+# New compiler
+
+# New do elaborator
+
+# Module System
+
+# Coinductive predicates
+
+# Verso
+
+# Grind
+
+# Functional induction
+
+# Std.Do/mvcgen
+
+# Concurrency Primitives
+
+# Async I/O
+
+# HTTP server & client
+
+# Date and Time library
+
+# Iterators
+
+# Containers
+
+# Strings
