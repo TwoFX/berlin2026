@@ -109,10 +109,9 @@ How does this work, and how far can we take this?
 
 # How does this work?
 
-Lean has three mechanisms for influencing the compiler with proofs:
-* Runtime functions
-* Pattern matching on empty types
-* Replacing implementations of functions
+Lean has two main mechanisms for influencing the compiler with proofs:
+* Runtime functions, and
+* pattern matching on empty types
 
 # Runtime functions
 
@@ -133,7 +132,7 @@ def Array.getInternal' {α : Type u} (a : @& Array α)
   a.toList.get ⟨i, h⟩
 ```
 
-```
+```cpp
 static inline lean_obj_res lean_array_fget(b_lean_obj_arg a, b_lean_obj_arg i)
 ```
 
@@ -151,19 +150,26 @@ def firstOrZero (l : List Nat) : Nat :=
   | [] => -- Unreachable, what to put here?
 ```
 
-
 :::fragment
 ```lean
 def firstOrZero' (l : List Nat) : Nat :=
   match h : l ++ [0] with
   | x :: _ => x
+  | [] => unreachable! -- Runtime check + panic
+```
+
+
+```lean
+def firstOrZero'' (l : List Nat) : Nat :=
+  match h : l ++ [0] with
+  | x :: _ => x
   | [] =>
-    have : False := by simp at h
-    nomatch this
+    have false : False := by simp at h
+    nomatch false
 ```
 
 Inhabit {lean}`False`, an uninhabited type, from the contradictory context, and
-match on it.
+match on it. There are no cases!
 
 The compiler has special handling for this.
 :::
@@ -202,5 +208,45 @@ def first._redArg l : tobj :=
   return head.1
 ```
 :::
+
+# Rust
+
+Rust comes with an `unreachable!` macro and an `unreachable_unchecked` function.
+
+```rust
+/// # Safety
+/// All values in `indices` must be in bounds for `data`.
+unsafe fn sum_at(data: &[u64], indices: &[usize]) -> u64 {
+    indices.iter().fold(0, |acc, &i| {
+        if i >= data.len() {
+            // Safety: by the precondition of the function
+            unsafe { std::hint::unreachable_unchecked(); }
+        }
+        acc + data[i]
+    })
+}
+```
+
+:::fragment
+```lean
+def sumAt (data : Array UInt64) (indices : Array USize)
+    (h : ∀ i ∈ indices, i.toNat < data.size) : UInt64 :=
+  indices.attach.iter.fold (init := 0) fun acc i =>
+    acc + data[i.1]'(by grind)
+```
+
+More assistance, more explicit, user-extensible.
+:::
+
+# Use case: self-balancing binary search trees
+
+The Lean standard library ships an implementation of weight-balanced trees, a type of
+self-balancing binary search tree.
+
+After modifications, we need to rebalance. This is a nested pattern match.
+
+# Use case: UTF-8 strings
+
+# Ergonomics is the key
 
 # Limitations

@@ -5,7 +5,7 @@ defaultTargets = ["bobkonf", "leaning-in"]
 [[require]]
 name = "verso-slides"
 git = "git@github.com:leanprover/verso-slides.git"
-rev = "main"
+rev = "julias-berlin-2026-branch"
 
 [[lean_lib]]
 name = "Bobkonf"
