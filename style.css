@@ -5,3 +5,7 @@
 .reveal .slides section {
   text-align: left;
 }
+
+.reveal .slides section img {
+  max-height: 400px;
+}
