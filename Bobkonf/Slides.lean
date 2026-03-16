@@ -22,9 +22,7 @@ Julia Markus Himmel
 
 Lean FRO
 
-# Software verification approaches
-
-Which options are there for writing verified software?
+# How do programs and proofs meet?
 
 # Write in mainstream language, extract verification conditions
 
@@ -485,7 +483,7 @@ Verification style differs for binary search trees and strings.
 * Strings: proper theory-building and hand-written proofs
 
 :::fragment (index := 1)
-Hot takes:
+Opinions:
 * Theory-building gets you further than VC generation.
 * For true robustness, you need a system that is interactive, highly automated, and understandable.
 :::
